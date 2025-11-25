@@ -14,10 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce')
 .then(() => console.log('✅ MongoDB Connected'))
 .catch((err) => console.log('❌ MongoDB Connection Error:', err));
 
@@ -26,10 +23,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to eCommerce API' });
 });
 
-// Import routes (will be created later)
-// app.use('/api/products', require('./routes/productRoutes'));
-// app.use('/api/users', require('./routes/userRoutes'));
-// app.use('/api/orders', require('./routes/orderRoutes'));
+// Import routes
+app.use('/api/products', require('./routes/productRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/orders', require('./routes/orderRoutes'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
