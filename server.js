@@ -36,6 +36,12 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`🚀Ecommerce Server is running on port ${PORT}`);
-});
+// Only start server if not in Vercel
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Ecommerce Server is running on port ${PORT}`);
+  });
+}
+
+// Export for Vercel
+module.exports = app;
